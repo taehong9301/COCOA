@@ -1,6 +1,13 @@
 spring:
   profiles:
     active: local
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true # 실행한 SQL 문 콘솔에 출력
+        format_sql: true # 가독성 높여줌
+  jackson:
+    property-naming-strategy: SNAKE_CASE # REST API 결과값을 'snake case' 형태로 변환
 ---
 spring:
   config:
@@ -15,6 +22,7 @@ spring:
     url: jdbc:h2:mem:cocoa_db
     username: admin
     password: 1234
+
 ---
 spring:
   config:
