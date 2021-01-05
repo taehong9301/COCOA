@@ -2,14 +2,19 @@ package com.tistory.memostack.cocoa.member.domain;
 
 import com.tistory.memostack.cocoa.common.converter.BooleanToYNConverter;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "member")
 @Getter
+@Setter
 @Builder
+@Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
@@ -17,8 +22,9 @@ public class Member {
 
   // PK
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  @Column(name = "id")
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
 
   // email (Email 로 로그인)
   @Column(unique = true, nullable = false, length = 80)
@@ -54,4 +60,11 @@ public class Member {
   // 비밀번호 갱신일
   @Column(nullable = false)
   private LocalDateTime passwordUpdatedAt;
+
+  // Member 1 : N MemberRole
+  @OneToMany(
+      fetch = FetchType.EAGER, // 권한 정보도 즉시 가져와햐해서 EAGER 로 설정
+      mappedBy = "member" // MemberRole 의 member 와 mapping 하여 양방향 관계 설정
+      )
+  private Set<MemberRole> memberRoles = new HashSet<>();
 }

@@ -4,10 +4,10 @@ spring:
   jpa:
     properties:
       hibernate:
-        show_sql: true # ½ÇÇàÇÑ SQL ¹® ÄÜ¼Ö¿¡ Ãâ·Â
-        format_sql: true # °¡µ¶¼º ³ô¿©ÁÜ
+        show_sql: true # ì‹¤í–‰í•œ SQL ë¬¸ ì½˜ì†”ì— ì¶œë ¥
+        format_sql: true # ê°€ë…ì„± ë†’ì—¬ì¤Œ
   jackson:
-    property-naming-strategy: SNAKE_CASE # REST API °á°ú°ªÀ» 'snake case' ÇüÅÂ·Î º¯È¯
+    property-naming-strategy: SNAKE_CASE # REST API ê²°ê³¼ê°’ì„ 'snake case' í˜•íƒœë¡œ ë³€í™˜
 ---
 spring:
   config:

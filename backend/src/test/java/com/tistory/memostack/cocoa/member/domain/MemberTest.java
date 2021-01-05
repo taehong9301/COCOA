@@ -1,5 +1,6 @@
 package com.tistory.memostack.cocoa.member.domain;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class MemberTest {
 
   @Test
+  @DisplayName("Member 객체 생성 테스트")
   void creationTest() {
     Member member =
         Member.builder()
