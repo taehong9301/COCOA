@@ -44,8 +44,6 @@ class MemberRoleRepositoryTest {
                 .passwordUpdatedAt(now)
                 .build());
     final Role savedRole = roleRepository.save(Role.builder().roleName(roleName).build());
-    System.out.println(savedMember.toString());
-    System.out.println(savedRole.toString());
 
     final MemberRole memberRole = MemberRole.builder().member(savedMember).role(savedRole).build();
 

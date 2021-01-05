@@ -6,7 +6,7 @@ import lombok.experimental.Accessors;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "role")
+@Table(name = "member_role")
 @Getter
 @Setter
 @Builder
@@ -17,7 +17,7 @@ public class MemberRole {
   // PK
   @Id
   @Column(name = "id")
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   // 외래키를 가지므로 MemberRole 이 연관 관계의 주인
