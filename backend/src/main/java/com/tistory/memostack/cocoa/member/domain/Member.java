@@ -3,6 +3,7 @@ package com.tistory.memostack.cocoa.member.domain;
 import com.tistory.memostack.cocoa.common.converter.BooleanToYNConverter;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "member")
+@DynamicUpdate
 @Getter
 @Setter
 @Builder
