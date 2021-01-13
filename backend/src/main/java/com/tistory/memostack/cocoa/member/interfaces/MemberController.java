@@ -1,10 +1,13 @@
 package com.tistory.memostack.cocoa.member.interfaces;
 
 import com.tistory.memostack.cocoa.member.application.MemberService;
+import com.tistory.memostack.cocoa.member.domain.Member;
 import com.tistory.memostack.cocoa.member.interfaces.network.MemberRequest;
 import com.tistory.memostack.cocoa.member.interfaces.network.MemberResponse;
 import com.tistory.memostack.cocoa.member.interfaces.network.TokenResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -25,9 +28,28 @@ public class MemberController {
    * @return
    */
   @PostMapping("member")
-  public @ResponseBody MemberResponse join(@RequestBody MemberRequest memberRequest) {
-    log.info("Sign up. " + memberRequest.toString());
-    return memberService.insertMember(memberRequest);
+  public ResponseEntity<MemberResponse> join(@RequestBody MemberRequest memberRequest) {
+    log.info("Sign up. {}", memberRequest.toString());
+
+    final Member insertedMember =
+        memberService.insertMember(
+            Member.builder()
+                .email(memberRequest.getEmail())
+                .password(memberRequest.getPassword())
+                .name(memberRequest.getName())
+                .address(memberRequest.getAddress())
+                .phone(memberRequest.getPhone())
+                .build());
+
+    log.info("Success to join member. Member: {}", insertedMember.toString());
+    return new ResponseEntity<>(
+        MemberResponse.builder()
+            .email(insertedMember.getEmail())
+            .address(insertedMember.getAddress())
+            .name(insertedMember.getName())
+            .phone(insertedMember.getPhone())
+            .build(),
+        HttpStatus.CREATED);
   }
 
   /**

@@ -2,8 +2,6 @@ package com.tistory.memostack.cocoa.member.application;
 
 import com.tistory.memostack.cocoa.member.domain.Member;
 import com.tistory.memostack.cocoa.member.infrastructure.MemberRepository;
-import com.tistory.memostack.cocoa.member.interfaces.network.MemberRequest;
-import com.tistory.memostack.cocoa.member.interfaces.network.MemberResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,35 +28,15 @@ public class MemberService {
    * @return Member 저장 완료 된 사용자의 정보를 반환
    */
   public Member insertMember(Member member) {
+    log.info("Insert member. {}", member.getEmail());
+
     final LocalDateTime now = LocalDateTime.now();
-    member.setActive(true).setRegisterAt(now).setPasswordUpdatedAt(now);
+    member
+        .setActive(true) // 유저 활성화
+        .setRegisterAt(now) // 회원가입일
+        .setPasswordUpdatedAt(now) // 비밀번호 갱신일
+        .setPassword(passwordEncoder.encode(member.getPassword())); // 비밀번호 암호화
+
     return memberRepository.save(member);
-  }
-
-  /**
-   * API 를 통해 넘겨받은 MemberRequest 객체를 insert 하는 메소드
-   *
-   * @param memberRequest Member 정보를 담고 있는 MemberRequest 객체
-   * @return MemberResponse 사용자 정보를 담은 MemberResponse 객체
-   */
-  public MemberResponse insertMember(MemberRequest memberRequest) {
-    log.info("Insert member. " + memberRequest.getEmail());
-
-    final Member member =
-        insertMember(
-            Member.builder()
-                .email(memberRequest.getEmail())
-                .password(passwordEncoder.encode(memberRequest.getPassword()))
-                .name(memberRequest.getName())
-                .address(memberRequest.getAddress())
-                .phone(memberRequest.getPhone())
-                .build());
-
-    return MemberResponse.builder()
-        .email(member.getEmail())
-        .address(member.getAddress())
-        .name(member.getName())
-        .phone(member.getPhone())
-        .build();
   }
 }

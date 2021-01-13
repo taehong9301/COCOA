@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,7 +26,7 @@ class MemberServiceTest {
 
   @BeforeEach
   void setUp() {
-    this.passwordEncoder = new BCryptPasswordEncoder();
+    this.passwordEncoder = new BCryptPasswordEncoder(); // 비밀번호 암호화를 위해..
     this.memberService = new MemberService(memberRepository, passwordEncoder);
   }
 
@@ -34,11 +35,10 @@ class MemberServiceTest {
   void insetTest() {
     // given
     final LocalDateTime now = LocalDateTime.now();
-    final String encryptPassword = passwordEncoder.encode("1234");
     final Member member =
         Member.builder()
             .email("test@naver.com")
-            .password(encryptPassword)
+            .password("1234")
             .name("테스트 유저")
             .phone("010-1234-5678")
             .isActive(true)
@@ -50,7 +50,7 @@ class MemberServiceTest {
             Member.builder()
                 .id(1L)
                 .email("test@naver.com")
-                .password(encryptPassword)
+                .password(passwordEncoder.encode("1234"))
                 .name("테스트 유저")
                 .phone("010-1234-5678")
                 .isActive(true)
@@ -64,5 +64,6 @@ class MemberServiceTest {
     // then
     assertEquals(1L, savedMember.getId());
     assertEquals("test@naver.com", savedMember.getEmail());
+    assertTrue(passwordEncoder.matches("1234", savedMember.getPassword()));
   }
 }
