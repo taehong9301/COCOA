@@ -1,6 +1,7 @@
 package com.tistory.memostack.cocoa.member.application;
 
 import com.tistory.memostack.cocoa.member.domain.Member;
+import com.tistory.memostack.cocoa.member.exception.NotfoundMemberException;
 import com.tistory.memostack.cocoa.member.infrastructure.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,9 +12,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,8 +33,8 @@ class MemberServiceTest {
   }
 
   @Test
-  @DisplayName("insert() 테스트")
-  void insetTest() {
+  @DisplayName("insert 테스트")
+  void insetMemberTest() {
     // given
     final LocalDateTime now = LocalDateTime.now();
     final Member member =
@@ -65,5 +67,65 @@ class MemberServiceTest {
     assertEquals(1L, savedMember.getId());
     assertEquals("test@naver.com", savedMember.getEmail());
     assertTrue(passwordEncoder.matches("1234", savedMember.getPassword()));
+  }
+
+  @Test
+  @DisplayName("update 테스트")
+  void updateMemberTest() {
+    // given
+    final LocalDateTime now = LocalDateTime.now();
+    final Member request =
+        Member.builder().id(1L).email("test@naver.com").password("4321").name("아무개").build();
+    given(memberRepository.findById(1L))
+        .willReturn(
+            Optional.of(
+                Member.builder()
+                    .id(1L)
+                    .email("test@naver.com")
+                    .password("1234")
+                    .name("홍길동")
+                    .phone("010-1234-5678")
+                    .isActive(true)
+                    .registerAt(now)
+                    .passwordUpdatedAt(now)
+                    .build()));
+    given(memberRepository.save(any()))
+        .willReturn(
+            Member.builder()
+                .id(1L)
+                .email("test@naver.com")
+                .password(passwordEncoder.encode("4321"))
+                .name("홍길동")
+                .phone("010-1234-5678")
+                .isActive(true)
+                .registerAt(now)
+                .passwordUpdatedAt(now)
+                .build());
+
+    // when
+    final Member updatedMember = memberService.updateMember(request);
+
+    // then
+    assertEquals(1L, updatedMember.getId());
+    assertEquals("test@naver.com", updatedMember.getEmail());
+    assertTrue(passwordEncoder.matches("4321", updatedMember.getPassword()));
+    assertEquals("홍길동", updatedMember.getName());
+  }
+
+  @Test
+  @DisplayName("update 실패 테스트")
+  void updateMemberFailTest() {
+    // given
+    final LocalDateTime now = LocalDateTime.now();
+    final Member request =
+        Member.builder().id(1L).email("test@naver.com").password("4321").name("아무개").build();
+    given(memberRepository.findById(1L)).willReturn(Optional.empty());
+
+    assertThrows(
+        NotfoundMemberException.class,
+        () -> {
+          // when
+          memberService.updateMember(request);
+        });
   }
 }
