@@ -116,7 +116,6 @@ class MemberServiceTest {
   @DisplayName("update 실패 테스트")
   void updateMemberFailTest() {
     // given
-    final LocalDateTime now = LocalDateTime.now();
     final Member request =
         Member.builder().id(1L).email("test@naver.com").password("4321").name("아무개").build();
     given(memberRepository.findById(1L)).willReturn(Optional.empty());
