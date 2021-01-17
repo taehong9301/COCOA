@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: test
   jpa:
     properties:
       hibernate:
@@ -12,7 +12,7 @@ spring:
 spring:
   config:
     activate:
-      on-profile: local
+      on-profile: test
   h2:
     console:
       enabled: true
