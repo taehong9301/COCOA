@@ -1,0 +1,50 @@
+.loginWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.loginWrapper .loginForm {
+  max-width: 500px;
+}
+.loginWrapper .loginInput {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  border-radius: 0;
+  border: 1px solid #868e96;
+  color: #212529;
+}
+.loginWrapper .loginInput:focus {
+  outline: none;
+}
+.loginWrapper .loginBtn,
+.loginWrapper .signUpBtn {
+  width: 100%;
+  padding: 15px;
+  transition: all 0.1s ease-in-out;
+  margin-bottom: 10px;
+}
+.loginWrapper .signUpBtn {
+  color: #212529;
+  background-color: #ffffff;
+  border: 1px solid #212529;
+}
+.loginWrapper .signUpBtn:hover {
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #212529;
+  border: 1px solid #212529;
+}
+.loginWrapper .loginBtn {
+  color: #ffffff;
+  background-color: #212529;
+  border: 1px solid #212529;
+}
+.loginWrapper .loginBtn:hover {
+  cursor: pointer;
+  color: #282c34;
+  background-color: #ffffff;
+  border: 1px solid #212529;
+}
