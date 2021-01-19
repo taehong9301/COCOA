@@ -1,6 +1,6 @@
 import React from 'react'
-import '../style/styles.css'
 import { Link } from 'react-router-dom'
+import '../style/header.css'
 
 const Header = () => {
   return (
@@ -26,9 +26,6 @@ const Header = () => {
           </li>
         </ul>
       </header>
-      <h1 className="logo">
-        <Link to="/">COCOA</Link>
-      </h1>
     </>
   )
 }
