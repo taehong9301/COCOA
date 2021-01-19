@@ -1,0 +1,36 @@
+spring:
+  profiles:
+    active: test
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true # 실행한 SQL 문 콘솔에 출력
+        format_sql: true # 가독성 높여줌
+  jackson:
+    property-naming-strategy: SNAKE_CASE # REST API 결과값을 'snake case' 형태로 변환
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  h2:
+    console:
+      enabled: true
+  datasource:
+    platform: h2
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:cocoa_db
+    username: admin
+    password: 1234
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
