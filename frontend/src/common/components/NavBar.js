@@ -6,13 +6,40 @@ const NavBar = () => {
     <nav>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">TOP</Link>
         </li>
         <li>
-          <Link to="/login">로그인</Link>
+          <Link to="/login">EVENT</Link>
         </li>
         <li>
-          <Link to="/profile">프로필</Link>
+          <Link to="/">OUTER</Link>
+        </li>
+        <li>
+          <Link to="/profile">DRESS</Link>
+        </li>
+        <li>
+          <Link to="/login">KNIT/TEE</Link>
+        </li>
+        <li>
+          <Link to="/profile">BLOUSE</Link>
+        </li>
+        <li>
+          <Link to="/">SKIRT</Link>
+        </li>
+        <li>
+          <Link to="/login">PANTS</Link>
+        </li>
+        <li>
+          <Link to="/profile">SHOES</Link>
+        </li>
+        <li>
+          <Link to="/profile">ACC</Link>
+        </li>
+        <li>
+          <Link to="/profile">BAG</Link>
+        </li>
+        <li>
+          <Link to="/profile">당일발송</Link>
         </li>
       </ul>
     </nav>

@@ -17,15 +17,17 @@ function App() {
         <NavBar />
 
         {/*본문 - 라우팅 설정*/}
-        <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/">home</Route>
-        </Switch>
+        <main>
+          <Switch>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+            <Route path="/">home</Route>
+          </Switch>
+        </main>
 
         {/*푸터*/}
         <Footer />
