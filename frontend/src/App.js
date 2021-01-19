@@ -5,6 +5,7 @@ import Profile from './member/containers/Profile'
 import NavBar from './common/components/NavBar'
 import Header from './common/components/Header'
 import Footer from './common/components/Footer'
+import Logo from './common/components/Logo'
 
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
       <div className="rootContainer">
         {/*헤더*/}
         <Header />
+
+        {/*로고*/}
+        <Logo />
 
         {/*네비게이션*/}
         <NavBar />

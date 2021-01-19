@@ -26,9 +26,6 @@ const Header = () => {
           </li>
         </ul>
       </header>
-      <h1 className="logo">
-        <Link to="/">COCOA</Link>
-      </h1>
     </>
   )
 }
