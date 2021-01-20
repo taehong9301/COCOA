@@ -21,11 +21,11 @@ public class PrincipalDetailsService implements UserDetailsService {
   @Autowired private MemberRepository memberRepository;
 
   @Override
-  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    Optional<Member> optionalMember = memberRepository.findMemberByEmail(email);
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    Optional<Member> optionalMember = memberRepository.findMemberByUsername(username);
 
     return optionalMember
         .map(PrincipalDetail::new) // PrincipalDetails 객체에 담아서 반환 (SecurityContextHolder 에 담기 위함)
-        .orElseThrow(() -> new UsernameNotFoundException("Invalid email. email: " + email));
+        .orElseThrow(() -> new UsernameNotFoundException("Invalid email. username: " + username));
   }
 }

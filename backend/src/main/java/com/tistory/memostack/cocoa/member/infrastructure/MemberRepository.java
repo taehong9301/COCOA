@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository // JpaRepository 를 extends 하면, 생략 가능.
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-  Optional<Member> findMemberByEmail(String email);
+  Optional<Member> findMemberByUsername(String username);
 }

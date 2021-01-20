@@ -1,0 +1,130 @@
+.loginWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.loginWrapper .loginForm {
+  max-width: 550px;
+  width: 100%;
+  margin: 80px 0;
+}
+.loginTit {
+  text-align: center;
+  font-weight: normal;
+  margin-bottom: 40px;
+}
+.oauthLoginTit {
+  text-align: center;
+  font-weight: normal;
+  margin-top: 30px;
+}
+.loginWrapper .loginInput {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  border-radius: 0;
+  border: 1px solid #868e96;
+  color: #212529;
+}
+.loginWrapper .loginInput:focus {
+  outline: none;
+}
+.loginHelpMenu {
+  margin-top: 20px;
+  padding: 0 0 30px 0;
+  box-sizing: border-box;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #868e96;
+}
+.loginHelpMenu a {
+  padding: 10px;
+}
+
+.loginBtn,
+.googleLoginBtn,
+.kakaoLoginBtn,
+.naverLoginBtn {
+  width: 100%;
+  padding: 15px;
+  transition: all 0.1s ease-in-out;
+  margin-bottom: 10px;
+}
+.loginBtn {
+  color: #ffffff;
+  background-color: #212529;
+  border: 1px solid #212529;
+}
+.loginBtn:hover {
+  cursor: pointer;
+  color: #282c34;
+  background-color: #ffffff;
+  border: 1px solid #212529;
+}
+.googleLoginBtn {
+  color: #ffffff;
+  background-color: #4285f4;
+  border: 1px solid #4285f4;
+}
+.googleLoginBtn:hover {
+  cursor: pointer;
+  color: #4285f4;
+  background-color: #ffffff;
+  border: 1px solid #4285f4;
+}
+.kakaoLoginBtn {
+  color: #212529;
+  background-color: #fee500;
+  border: 1px solid #fee500;
+}
+.kakaoLoginBtn:hover {
+  cursor: pointer;
+  color: #282c34;
+  background-color: #ffffff;
+  border: 1px solid #fee500;
+}
+.naverLoginBtn {
+  color: #ffffff;
+  background-color: #1ec800;
+  border: 1px solid #1ec800;
+}
+.naverLoginBtn:hover {
+  cursor: pointer;
+  color: #1ec800;
+  background-color: #ffffff;
+  border: 1px solid #1ec800;
+}
+
+.signUpWrapper {
+  width: 960px;
+  border-top: 1px solid #868e96;
+  padding: 40px 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signUpDesc {
+  margin-right: 80px;
+  line-height: 2em;
+}
+.signUpBtn {
+  width: 450px;
+  height: 50px;
+  padding: 15px;
+  transition: all 0.1s ease-in-out;
+  margin-bottom: 10px;
+  color: #212529;
+  background-color: #ffffff;
+  border: 1px solid #212529;
+}
+.signUpBtn:hover {
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #212529;
+  border: 1px solid #212529;
+}

@@ -29,6 +29,7 @@ class MemberRoleRepositoryTest {
   @DisplayName("save() 테스트")
   void saveTest() {
     // given
+    String username = "tester";
     String email = "test@naver.com";
     LocalDateTime now = LocalDateTime.now();
     String roleName = "ADMIN";
@@ -36,6 +37,7 @@ class MemberRoleRepositoryTest {
     final Member savedMember =
         memberRepository.save(
             Member.builder()
+                .username(username)
                 .email(email)
                 .password("1234")
                 .name("test user")
@@ -51,6 +53,7 @@ class MemberRoleRepositoryTest {
     final MemberRole savedMemberRole = memberRoleRepository.save(memberRole);
 
     // then
+    assertEquals(username, savedMemberRole.getMember().getUsername());
     assertEquals(email, savedMemberRole.getMember().getEmail());
     assertEquals(roleName, savedMemberRole.getRole().getRoleName());
   }

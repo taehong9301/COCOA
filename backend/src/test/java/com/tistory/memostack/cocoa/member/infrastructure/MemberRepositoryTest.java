@@ -21,11 +21,12 @@ class MemberRepositoryTest {
 
   @Autowired private MemberRepository memberRepository;
 
-  Member save(String email) {
+  Member save(String username) {
     final LocalDateTime now = LocalDateTime.now();
     final Member member =
         Member.builder()
-            .email(email)
+            .username(username)
+            .email("test@gmail.com")
             .password("1234")
             .name("테스트 유저")
             .isActive(true)
@@ -40,13 +41,13 @@ class MemberRepositoryTest {
   @DisplayName("save() 테스트")
   void saveTest() {
     // given
-    String email = "test@naver.com";
+    String username = "tester";
 
     // when
-    Member savedMember = save(email);
+    Member savedMember = save(username);
 
     // then
-    assertEquals(email, savedMember.getEmail());
+    assertEquals(username, savedMember.getUsername());
   }
 
   @Test
@@ -54,7 +55,7 @@ class MemberRepositoryTest {
   void finaAll() {
     // given
     for (int i = 0; i < 10; i++) {
-      save("test" + i + "@naver.com");
+      save("tester" + i);
     }
 
     // when
@@ -64,25 +65,25 @@ class MemberRepositoryTest {
     assertFalse(members.isEmpty());
     members.forEach(
         member -> {
-          assertTrue(member.getEmail().matches("test\\d{1}@naver.com"));
+          assertTrue(member.getUsername().matches("tester\\d{1}"));
         });
   }
 
   @Test
-  @DisplayName("findMemberByEmail() 테스트")
-  void findMemberByEmailTest() {
+  @DisplayName("findMemberByUsername() 테스트")
+  void findMemberByUsernameTest() {
     // given
-    String email = "test@naver.com";
-    save(email);
+    String username = "tester";
+    save(username);
 
     // when
-    final Optional<Member> optionalMember = memberRepository.findMemberByEmail(email);
+    final Optional<Member> optionalMember = memberRepository.findMemberByUsername(username);
 
     // then
     assertTrue(optionalMember.isPresent());
     optionalMember.ifPresent(
         member -> {
-          assertEquals(email, member.getEmail());
+          assertEquals(username, member.getUsername());
         });
   }
 }
