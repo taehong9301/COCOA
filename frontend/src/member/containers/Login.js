@@ -1,39 +1,11 @@
 import React from 'react'
 import '../style/login.css'
-import { Link } from 'react-router-dom'
+import LoginForm from '../components/LoginForm'
 
 const Login = () => {
-  const onSubmit = (event) => {
-    event.preventDefault()
-  }
   return (
     <div className="loginWrapper">
-      <form onSubmit={onSubmit} className="loginForm">
-        <h3 className="loginTit">회원 로그인</h3>
-        <input
-          type="text"
-          name="email"
-          className="loginInput"
-          placeholder="Enter your email"
-        />
-        <input
-          type="password"
-          name="password"
-          className="loginInput"
-          placeholder="Enter your password"
-        />
-        <button className="loginBtn">LOGIN</button>
-
-        <div className="loginHelpMenu">
-          <Link to="/search/email">이메일 찾기</Link>/
-          <Link to="/search/password">비밀번호 찾기</Link>
-        </div>
-
-        <h4 className="oauthLoginTit">간편 로그인</h4>
-        <button className="googleLoginBtn">GOOGLE LOGIN</button>
-        <button className="kakaoLoginBtn">KAKAO LOGIN</button>
-        <button className="naverLoginBtn">NAVER LOGIN</button>
-      </form>
+      <LoginForm />
 
       <div className="signUpWrapper">
         <div className="signUpDesc">

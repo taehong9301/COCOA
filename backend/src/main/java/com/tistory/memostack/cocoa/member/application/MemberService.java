@@ -31,7 +31,7 @@ public class MemberService {
    * @return Member 저장 완료 된 사용자의 정보를 반환
    */
   public Member insertMember(Member member) {
-    log.info("Insert member. {}", member.getEmail());
+    log.info("Insert member. username: {}", member.getUsername());
 
     final LocalDateTime now = LocalDateTime.now();
     member
@@ -59,7 +59,7 @@ public class MemberService {
         optionalMember.orElseThrow(() -> new NotfoundMemberException("id: " + request.getId()));
 
     // 가지고 온 Member 의 정보를 Update 함
-    log.info("Update member. {}", findMember.getEmail());
+    log.info("Update member. username {}", findMember.getUsername());
     final LocalDateTime now = LocalDateTime.now();
     findMember
         .setAddress(request.getAddress()) // 주소

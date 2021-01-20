@@ -28,13 +28,16 @@ public class Member {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  // email (Email 로 로그인)
+  // username (username 으로 로그인)
   @Column(unique = true, nullable = false, length = 80)
-  private String email;
+  private String username;
 
   // 비밀번호
   @Column(nullable = false)
   private String password;
+
+  @Column(nullable = false, length = 80)
+  private String email;
 
   // 이름 (또는 닉네임)
   @Column(nullable = false, length = 50)
