@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
+
 @Slf4j
 @RestController
 @RequestMapping("rest/api/v1")
@@ -52,13 +54,17 @@ public class MemberController {
         HttpStatus.CREATED);
   }
 
-  /**
-   * @param memberRequest
-   * @return
-   */
   @PostMapping("authentication")
-  public @ResponseBody TokenResponse authentication(@RequestBody MemberRequest memberRequest) {
-    log.info("Try auth. " + memberRequest.toString());
+  public @ResponseBody TokenResponse authentication(
+      @RequestHeader String authorization, @RequestBody MemberRequest memberRequest) {
+    // Header 에서 계정 정보를 가지고 옴
+    log.info("Authorization: {}", authorization);
+    final String encodedUsernamePassword = authorization.split(" ")[1];
+
+    // Base64 복호화
+    final String[] usernamePassword =
+        new String(Base64.getDecoder().decode(encodedUsernamePassword)).split(":");
+    log.info("Try login. username: {}", usernamePassword[0]);
 
     // TODO 개발 필요
     return TokenResponse.builder().token("daksdjoaj").build();
