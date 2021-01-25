@@ -1,5 +1,6 @@
 package com.tistory.memostack.cocoa.security.config;
 
+import com.tistory.memostack.cocoa.common.filter.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -22,6 +24,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   public BCryptPasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
+  }
+
+  @Bean
+  public JwtFilter jwtFilter() {
+    return new JwtFilter();
   }
 
   @Override
@@ -39,9 +46,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll()
         .antMatchers("/rest/api/**")
         .authenticated()
-        // 기타 url은 모두 허용
+        // 기타 url 은 모두 허용
         .anyRequest()
         .permitAll()
-        .and();
+        .and()
+        // JWT 필터 적용
+        .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
   }
 }
