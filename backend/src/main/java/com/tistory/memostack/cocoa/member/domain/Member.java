@@ -53,7 +53,7 @@ public class Member {
   // 휴면 계정 여부
   @Convert(converter = BooleanToYNConverter.class)
   @Column(nullable = false, length = 1)
-  private boolean isActive;
+  private Boolean isActive;
 
   // 계정 정보 등록일
   @Column(nullable = false)
