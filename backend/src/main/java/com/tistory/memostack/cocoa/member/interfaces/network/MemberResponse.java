@@ -10,6 +10,8 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class MemberResponse {
 
+  private String username;
+
   private String email;
 
   private String name;

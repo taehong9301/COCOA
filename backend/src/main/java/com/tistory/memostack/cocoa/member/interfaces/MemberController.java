@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
+
 @Slf4j
 @RestController
 @RequestMapping("rest/api/v1")
@@ -34,6 +36,7 @@ public class MemberController {
     final Member insertedMember =
         memberService.insertMember(
             Member.builder()
+                .username(memberRequest.getUsername())
                 .email(memberRequest.getEmail())
                 .password(memberRequest.getPassword())
                 .name(memberRequest.getName())
@@ -44,6 +47,7 @@ public class MemberController {
     log.info("Success to join member. Member: {}", insertedMember.toString());
     return new ResponseEntity<>(
         MemberResponse.builder()
+            .username(insertedMember.getUsername())
             .email(insertedMember.getEmail())
             .address(insertedMember.getAddress())
             .name(insertedMember.getName())
@@ -52,15 +56,20 @@ public class MemberController {
         HttpStatus.CREATED);
   }
 
-  /**
-   * @param memberRequest
-   * @return
-   */
   @PostMapping("authentication")
-  public @ResponseBody TokenResponse authentication(@RequestBody MemberRequest memberRequest) {
-    log.info("Try auth. " + memberRequest.toString());
+  public @ResponseBody ResponseEntity<TokenResponse> authentication(
+      @RequestHeader String authorization) {
+    // Header 에서 계정 정보를 가지고 와서 Base64 복호화
+    log.info("Authorization: {}", authorization);
+    final String encodedUsernamePassword = authorization.split(" ")[1];
+    final String[] usernamePassword =
+        new String(Base64.getDecoder().decode(encodedUsernamePassword)).split(":");
 
-    // TODO 개발 필요
-    return TokenResponse.builder().token("daksdjoaj").build();
+    // 로그인 및 jwt 토큰 발급
+    log.info("Try login. username: {}", usernamePassword[0]);
+    final String token = memberService.login(usernamePassword[0], usernamePassword[1]);
+    log.info("Token for {}: {}", usernamePassword[0], token);
+
+    return new ResponseEntity<>(TokenResponse.builder().token(token).build(), HttpStatus.OK);
   }
 }
