@@ -47,9 +47,6 @@ main {
   flex-direction: column;
   box-sizing: border-box;
 }
-main > * {
-  flex: 1;
-}
 
 a {
   color: #212529;

@@ -7,7 +7,7 @@ const Login = () => {
     <div className="loginWrapper">
       <LoginForm />
 
-      <div className="signUpWrapper">
+      <div className="signUpHelp">
         <div className="signUpDesc">
           <h3 className="signUpTit">아직 회원이 아니신가요?</h3>
           <p>

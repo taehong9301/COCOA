@@ -6,6 +6,7 @@ import NavBar from './common/components/NavBar'
 import Header from './common/components/Header'
 import Footer from './common/components/Footer'
 import Logo from './common/components/Logo'
+import SignUp from './member/containers/SignUp'
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
           <Switch>
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/signup">
+              <SignUp />
             </Route>
             <Route path="/profile">
               <Profile />

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { changeField } from '../actions/member'
+import { changeLoginField } from '../actions/member'
 
 const LoginForm = () => {
   const dispatch = useDispatch()
@@ -13,7 +13,7 @@ const LoginForm = () => {
 
   const onChangeInput = (event) => {
     const { name, value } = event.target
-    dispatch(changeField({ [name]: value }))
+    dispatch(changeLoginField({ [name]: value }))
   }
 
   const onSubmit = (event) => {

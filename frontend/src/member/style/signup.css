@@ -1,0 +1,85 @@
+/* 회원 가입 */
+.signUpWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 980px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+/* 회원 가입 - 입력 폼 */
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+/* 회원 가입 - 입력 폼 - 타이틀 */
+.signUpForm .signUpTit {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  margin-top: 100px;
+  border-bottom: 1px solid #282c34;
+}
+/* 회원 가입 - 입력 폼 - 열 */
+.signUpFormRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.signUpFormRow:last-child {
+  margin-bottom: 0;
+}
+/* 회원 가입 - 입력 폼 - 라벨 */
+.signUpFormRow .label,
+.signUpFormRow .requiredLabel {
+  width: 150px;
+  text-align: right;
+  margin-right: 20px;
+}
+.signUpFormRow .requiredLabel:before {
+  content: '* ';
+  color: red;
+  top: 0;
+}
+/* 회원 가입 - 입력 폼 - input 필드 */
+.signUpFormRow .field {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #868e96;
+  max-width: 300px;
+}
+.signUpFormRow .field:focus {
+  outline: none;
+  border: 1px solid #282c34;
+}
+
+/* 회원 가입 - 동의 여부 폼 */
+.signUpAgreeForm {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: flex-start;
+  width: 100%;
+}
+/* 회원 가입 - 동의 여부 폼 - 타이틀 */
+.signUpAgreeTit {
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #282c34;
+}
+/* 회원 가입 - 동의 여부 폼 - 열 */
+.signUpAgreeRow {
+}
+/* 회원 가입 - 동의 여부 폼 - 라벨 */
+.signUpAgreeRow .label {
+}
+/* 회원 가입 - 동의 여부 폼 - 체크박스 */
+.signUpAgreeRow .fieldCheckbox {
+}
