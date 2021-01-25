@@ -1,6 +1,5 @@
 package com.tistory.memostack.cocoa.common.util;
 
-import com.tistory.memostack.cocoa.member.domain.Member;
 import com.tistory.memostack.cocoa.member.domain.MemberRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -9,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Component
 public class JwtManager {
@@ -20,15 +19,20 @@ public class JwtManager {
   /**
    * Member 정보를 담은 JWT 토큰을 생성한다.
    *
-   * @param member Member 정보를 담은 객체
+   * @param username Member 의 username
+   * @param memberRoles Member 의 인가정보
    * @return String JWT 토큰
    */
-  public String generateJwtToken(Member member) {
+  public String generateJwtToken(String username, List<String> memberRoles) {
+    final Map<String, Object> claims = new HashMap<>();
+    claims.put("username", username); // username
+    claims.put("roles", memberRoles); // 인가정보
+
     Date now = new Date();
     return Jwts.builder()
-        .setSubject(member.getUsername()) // 보통 username
+        .setSubject(username) // 보통 username
         .setHeader(createHeader())
-        .setClaims(createClaims(member)) // 클레임, 토큰에 포함될 정보
+        .setClaims(claims) // 클레임, 토큰에 포함될 정보
         .setExpiration(new Date(now.getTime() + expiredTime)) // 만료일
         .signWith(SignatureAlgorithm.HS256, securityKey)
         .compact();
@@ -40,19 +44,6 @@ public class JwtManager {
     header.put("alg", "HS256"); // 해시 256 사용하여 암호화
     header.put("regDate", System.currentTimeMillis());
     return header;
-  }
-
-  /**
-   * 클레임(Claim)을 생성한다.
-   *
-   * @param member 토큰을 생성하기 위한 계정 정보를 담은 객체
-   * @return Map<String, Object> 클레임(Claim)
-   */
-  private Map<String, Object> createClaims(Member member) {
-    Map<String, Object> claims = new HashMap<>();
-    claims.put("username", member.getUsername()); // username
-    claims.put("roles", member.getMemberRoles()); // 인가정보
-    return claims;
   }
 
   /**
@@ -81,7 +72,7 @@ public class JwtManager {
    * @param token JWT 토큰
    * @return Set<MemberRole> role 정보를 가지고 있는 Set
    */
-  public Set<MemberRole> getMemberRoleSetFromToken(String token) {
-    return (Set<MemberRole>) getClaims(token).get("roles");
+  public List<MemberRole> getMemberRoleSetFromToken(String token) {
+    return (List<MemberRole>) getClaims(token).get("roles");
   }
 }

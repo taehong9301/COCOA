@@ -1,15 +1,21 @@
 package com.tistory.memostack.cocoa.member.application;
 
+import com.tistory.memostack.cocoa.common.util.JwtManager;
 import com.tistory.memostack.cocoa.member.domain.Member;
 import com.tistory.memostack.cocoa.member.exception.NotfoundMemberException;
 import com.tistory.memostack.cocoa.member.infrastructure.MemberRepository;
+import com.tistory.memostack.cocoa.security.application.AuthenticationProviderImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -17,11 +23,31 @@ public class MemberService {
 
   private final MemberRepository memberRepository;
 
+  private final JwtManager jwtManager;
+
+  @Autowired private AuthenticationProviderImpl authenticationProvider;
+
   private final BCryptPasswordEncoder passwordEncoder;
 
-  public MemberService(MemberRepository memberRepository, BCryptPasswordEncoder passwordEncoder) {
+  public MemberService(
+      MemberRepository memberRepository,
+      JwtManager jwtManager,
+      BCryptPasswordEncoder passwordEncoder) {
     this.memberRepository = memberRepository;
+    this.jwtManager = jwtManager;
     this.passwordEncoder = passwordEncoder;
+  }
+
+  public String login(String username, String password) {
+    final Authentication authentication =
+        authenticationProvider.authenticate(
+            new UsernamePasswordAuthenticationToken(username, password));
+
+    return jwtManager.generateJwtToken(
+        authentication.getName(),
+        authentication.getAuthorities().stream()
+            .map(grantedAuthority -> grantedAuthority.getAuthority())
+            .collect(Collectors.toList()));
   }
 
   /**

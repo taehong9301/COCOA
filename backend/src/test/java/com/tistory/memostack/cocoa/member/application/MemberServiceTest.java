@@ -1,5 +1,6 @@
 package com.tistory.memostack.cocoa.member.application;
 
+import com.tistory.memostack.cocoa.common.util.JwtManager;
 import com.tistory.memostack.cocoa.member.domain.Member;
 import com.tistory.memostack.cocoa.member.exception.NotfoundMemberException;
 import com.tistory.memostack.cocoa.member.infrastructure.MemberRepository;
@@ -23,13 +24,14 @@ import static org.mockito.BDDMockito.given;
 class MemberServiceTest {
 
   @Mock private MemberRepository memberRepository;
+  @Mock private JwtManager jwtManager;
   private BCryptPasswordEncoder passwordEncoder;
   private MemberService memberService;
 
   @BeforeEach
   void setUp() {
     this.passwordEncoder = new BCryptPasswordEncoder(); // 비밀번호 암호화를 위해..
-    this.memberService = new MemberService(memberRepository, passwordEncoder);
+    this.memberService = new MemberService(memberRepository, jwtManager, passwordEncoder);
   }
 
   @Test
